@@ -1,0 +1,7 @@
+$chessboard-size: 900px;
+
+.chessboard {
+    border: 2px solid #000;
+    height: $chessboard-size;
+    width: $chessboard-size;
+}
