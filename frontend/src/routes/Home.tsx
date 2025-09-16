@@ -1,9 +1,38 @@
 import Sidebar from "../components/Sidebar.tsx"
 import "../styles/home.scss"
-import { useState } from "react"
-function Home() {
+import { useState, useEffect} from "react"
+import { useNavigate, useLocation } from "react-router-dom";
+
+import OfflineGame from "../components/OfflineGame.tsx"
+import OnlineGame from "../components/OnlineGame.tsx"
+
+
+interface HomeProps {
+  pageProp?: string | null;
+}
+function Home({ pageProp }: HomeProps) {
+    const navigate = useNavigate();
 
     const [isSidebarExpanded, setIsSidebarExpanded] = useState(false)
+
+    const contentRender = () => {
+
+        switch (pageProp) {
+            case "offlinegame":
+                return <OfflineGame />
+            case "onlinegame":
+                return <OnlineGame />
+            case "newgame":
+            default:
+                return(<>
+                        <button className="game-button" onClick={() => navigate("/offlinegame")}>Offline</button>
+                        <button className="game-button" onClick={() => navigate("/onlinegame")}>Online</button>
+                        
+                    </>
+                )
+        }
+    }
+
 
     return ( 
     <div className="home-container">
@@ -12,11 +41,10 @@ function Home() {
         setIsSidebarExpanded={setIsSidebarExpanded}
         />
         <div className="home-content">
-            <button className="game-button">Online game</button>
-            <button className="game-button">Offline game</button>
+            {contentRender()}
         </div>
     </div>
-)
+     );
 }
 
 export default Home

@@ -1,4 +1,4 @@
-import ChessBoard from "./components/ChessBoard"
+import ChessBoard from "./components/OfflineChessBoard.tsx"
 import { useEffect, useState } from "react"
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import "./styles/index.scss"
@@ -10,20 +10,14 @@ import Login from "./routes/Login.tsx"
 import Home from "./routes/Home.tsx"
 
 function App() {
-
-  // const [gameState, setGameState] = useState<GameState>("playing"); <ChessBoard setGameState={setGameState}/>
-  
-  // useEffect(() => {
-  //   if (gameState !== "playing")
-  //     alert(gameState)
-  // }, [gameState])
-
   return (
 
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />}/>
-        <Route path="/home" element={<Home />}/>
+        <Route path="/" element={<Home pageProp="newgame"/>}/>
+        <Route path="/home" element={<Home pageProp="newgame"/>}/>
+        <Route path="/offlinegame" element={<Home pageProp="offlinegame"/>}/>
+        <Route path="/onlinegame" element={<Home pageProp="onlinegame"/>}/>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Registration />} />
       </Routes>

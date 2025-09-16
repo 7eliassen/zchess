@@ -1,21 +1,17 @@
 import { Chessboard } from 'react-chessboard'
 import type { SquareHandlerArgs, PieceDropHandlerArgs } from 'react-chessboard'
-import { Chess} from 'chess.js'
-import type { Square } from 'chess.js'
-import { useState, useRef, useEffect} from 'react'
-import '../styles/chessboard.scss'
+import type { Move, Square } from 'chess.js'
+import { useState, useEffect} from 'react'
 
-function ChessBoard({ setGameState }: ChessBoardProps) {
-  // create a chess game using a ref to always have access to the latest game state within closures and maintain the game state across renders
-  const chessGameRef = useRef(new Chess())
-  const chessGame = chessGameRef.current
- 
+function ChessBoard({ setGameState, setHistotyOfMoves, histotyOfMoves, chessPosition, setChessPosition, chessGame}: ChessBoardProps) {
+// create a chess game using a ref to always have access to the latest game state within closures and maintain the game state across renders
+  const [boardOrientation, setBoardOrientation] = useState<'white' | 'black'>('white');
   // track the current position of the chess game in state to trigger a re-render of the chessboard
-  const [chessPosition, setChessPosition] = useState(chessGame.fen())
   const [moveFrom, setMoveFrom] = useState('')
   const [optionSquares, setOptionSquares] = useState({})
 
   useEffect(() => {
+    setTimeout(() => setBoardOrientation(chessGame.turn() === 'w' ? 'white' : 'black'), 500)
     const isCheckMate = chessGame.isCheckmate()
     const isStalemate = chessGame.isStalemate()
     const isDraw = chessGame.isDraw()
@@ -99,7 +95,8 @@ function ChessBoard({ setGameState }: ChessBoardProps) {
       square: moveFrom as Square,
       verbose: true
     })
-    const foundMove = moves.find(m => m.from === moveFrom && m.to === square)
+
+    const foundMove = moves.find((m: Move) => m.from === moveFrom && m.to === square)
 
     // not a valid move
     if (!foundMove) {
@@ -120,6 +117,10 @@ function ChessBoard({ setGameState }: ChessBoardProps) {
         to: square,
         promotion: 'q'
       })
+
+      const madenMove: HistoryMove = {from: moveFrom, to: square, fen: chessGame.fen(), piece: foundMove.piece};
+
+      setHistotyOfMoves([...histotyOfMoves, madenMove])
 
       
     } catch {
@@ -184,13 +185,17 @@ function ChessBoard({ setGameState }: ChessBoardProps) {
     onSquareClick,
     position: chessPosition,
     squareStyles: optionSquares,
-    id: 'click-or-drag-to-move'
+    id: 'offline-chessboard',
+    boardOrientation,
+    showAnimations: true,
+    animationDurationInMs: 250,
   }
 
     // render the chessboard
-    return (<div className='chessboard'>
-    <Chessboard options={chessboardOptions} />
-    </div>
+    return (
+      <div className='chessboard'>
+      <Chessboard options={chessboardOptions} />
+      </div>
 )
   
 }

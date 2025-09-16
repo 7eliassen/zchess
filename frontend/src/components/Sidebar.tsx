@@ -1,12 +1,14 @@
 import "../styles/sidebar.scss"
+import { useNavigate } from "react-router-dom";
 function Sidebar({isSidebarExpanded, setIsSidebarExpanded}: SideBarProps) {
+    const navigate = useNavigate();
     return (
         <div className="sidebar">
             <div className="sidebar-item" onClick={() => setIsSidebarExpanded(!isSidebarExpanded)}>
                 <img className="sidebar-picture" src={isSidebarExpanded ? "/arrow-left.svg" : "/arrow-right.svg"} alt="<-"/>
                 {isSidebarExpanded && <p>Minimize</p>}
             </div>
-            <div className="sidebar-item">
+            <div className="sidebar-item" onClick={() => navigate("/home")}>
                 <img className="sidebar-picture" src="/pawn.svg" alt="Game" />
                 {isSidebarExpanded && <p>Game</p>}
             </div>

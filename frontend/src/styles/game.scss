@@ -1,0 +1,42 @@
+.game-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap; /* no wrapping by default */
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+  min-width: 1024px;
+  max-height: 900px;
+  margin: 0 auto;
+
+  .chessboard {
+    flex: 0 0 auto;
+    aspect-ratio: 1 / 1;
+    border: 2px solid #000;
+  }
+
+  .chess-board-sidebar {
+    flex: 1;
+    border: 1px solid #000;
+    max-width: 25%;
+    display: flex;
+    flex-direction: column;
+    .content {
+        flex: 1; /* контент занимает всё доступное пространство */
+    }
+
+    .history-item {
+        border-bottom: 1px solid #000;
+
+        margin: 0;
+    }
+    footer {
+        min-height: 120px;
+        margin-bottom: 0;
+        margin-top:auto;
+        background-color: red;
+        border-top:1px solid #000;
+    }
+
+  }
+}
