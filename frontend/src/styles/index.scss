@@ -1,35 +1,13 @@
+@use "./adaptive";
+
 html {
     font-family: cursive;
-    font-size: 62.5%; /* 1rem = 10px */
 }
-
-@media (max-width: 768px) {
-    html {
-        font-size: 56.25%; /* 1rem = 9px */
-    }
-}
-
-@media (max-width: 480px) {
-    html {
-        font-size: 50%; /* 1rem = 8px */
-    }
-}
-
 
 body {
     font-size: 1.6rem;
 }
 
 html, body {
-    height: 100%; /* Make sure body takes full height */
     margin: 0;    /* Remove default margin */
 }
-
-.for-centered {
-    display: flex;
-    align-items: center;  
-    justify-content: center;
-    height: 100vh;
-    margin: 0; 
-}
-

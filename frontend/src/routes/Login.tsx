@@ -10,7 +10,7 @@ function Login() {
     <div className="for-centered">
     <div className="auth-container">
         <img className="zchess-logo" src="/zchess_logo.png" alt="ZchessLogo" />
-        <header>Login</header>
+        <header>Log in</header>
         <form>
           <input type="text" placeholder="Enter your login" value={username} onChange={e => setUsername(e.target.value)}/>
           <input type="password" placeholder="Enter your password" value={password} onChange={e => setPassword(e.target.value)}/>
@@ -20,7 +20,7 @@ function Login() {
         <div>
           <span className="auth-link">
             Don't have an account?
-            <Link to="/register"> Signup</Link>
+            <Link to="/register"> Sign up</Link>
           </span>
         </div>
       </div>

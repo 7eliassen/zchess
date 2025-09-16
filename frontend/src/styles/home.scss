@@ -1,0 +1,27 @@
+@use "./variables.scss" as *;
+.home-container {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+}
+
+.home-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    .game-button {
+        width: 23rem;
+        margin: 2rem;
+        font-size: 3rem;
+        border-radius: 1rem;
+        padding: 1rem 2rem;
+        font-family: cursive;
+        transition: $transition-style;
+        cursor: pointer;
+        &:hover {
+            transition: $transition-style;
+        }}
+
+}

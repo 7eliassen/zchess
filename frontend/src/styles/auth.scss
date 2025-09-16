@@ -1,3 +1,4 @@
+@use "./variables.scss" as *;
 .auth-container {
     display: flex;
     flex-direction: column;
@@ -35,6 +36,8 @@
 
         input[type="button"] {
             cursor: pointer;
+            color: #fff;
+            background-color: $green-color;
         }
     }
 
