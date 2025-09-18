@@ -9,6 +9,7 @@ import Registration from "./routes/Registration.tsx"
 import Login from "./routes/Login.tsx"
 import Home from "./routes/Home.tsx"
 
+
 function App() {
   return (
 
@@ -20,6 +21,9 @@ function App() {
         <Route path="/onlinegame" element={<Home pageProp="onlinegame"/>}/>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Registration />} />
+        <Route path="/profile" element={<Home pageProp="profile"/>} />
+        <Route path="/settings" element={<Home pageProp="settings"/>} />
+        <Route path="/archive" element={<Home pageProp="archive"/>} />
       </Routes>
     </BrowserRouter>
 

@@ -8,56 +8,64 @@ import { Chess } from "chess.js"
 const defaultPosition = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
 
 function OfflineGame() {
-    const [histotyOfMoves, setHistotyOfMoves] = useState<HistoryMove[]>([])
+    const [historyOfMoves, setHistoryOfMoves] = useState<HistoryMove[]>([{fen: defaultPosition} as HistoryMove])
     const [gameState, setGameState] = useState<GameState>("playing")
     const [chessPosition, setChessPosition] = useState(defaultPosition)
     const [chessGame, setChessGame] = useState(new Chess())
-    const [curHistoryMove, setCurHistoryMove] = useState<number | null>(null)
+    const [curHistoryMove, setCurHistoryMove] = useState<number>(0)
+    const [boardOrientation, setBoardOrientation] = useState<'white' | 'black'>('white');
+
 
     useEffect(() => {
-        console.log(histotyOfMoves)
-    }, [histotyOfMoves])
+        console.log(curHistoryMove)
+    }, [curHistoryMove])
 
     useEffect(() => {
         if (gameState !== "playing")
         alert(gameState)
     }, [gameState])
 
+    useEffect(() => {
+        console.log(curHistoryMove)
+        setChessPosition(historyOfMoves[curHistoryMove as number].fen)
+    }, [curHistoryMove])
+
+    useEffect(() => {
+        setCurHistoryMove(historyOfMoves.length - 1)
+    }, [historyOfMoves])
+
     const restart = () => {
-        setHistotyOfMoves([])
+        setHistoryOfMoves([{fen: defaultPosition} as HistoryMove])
+        setCurHistoryMove(0)
         setGameState("playing")
-        setChessPosition(defaultPosition)
         setChessGame(new Chess())
+        setChessPosition(defaultPosition)
     }
 
     const prev = () => {
-        setChessPosition(histotyOfMoves[histotyOfMoves.length - 2].fen)
+        setCurHistoryMove(curHistoryMove !== null && curHistoryMove > 0 ? curHistoryMove - 1 : 0)
     }
 
     const next = () => {
-/*************  ✨ Windsurf Command ⭐  *************/
-        const nextMove = histotyOfMoves[histotyOfMoves.length - 1]
-        if (nextMove) {
-            setChessPosition(nextMove.fen)
-        } else {
-            alert("No more moves")
-        }
-/*******  7f1c0b6b-9cee-4b9e-a91f-92b267c5374b  *******/    
+        setCurHistoryMove(curHistoryMove !== null && curHistoryMove < historyOfMoves.length - 1 ? curHistoryMove + 1 : historyOfMoves.length - 1)
     }
 
     return (
         <div className="game-container">
             <ChessBoard setGameState={setGameState}
-            setHistotyOfMoves={setHistotyOfMoves}
-            histotyOfMoves={histotyOfMoves}
+            setHistoryOfMoves={setHistoryOfMoves}
+            historyOfMoves={historyOfMoves}
             chessPosition={chessPosition}
             setChessPosition={setChessPosition}
-            chessGame={chessGame}/>
+            chessGame={chessGame}
+            boardOrientation={boardOrientation}
+            setBoardOrientation={setBoardOrientation}/>
             <ChessBoardSidebar
             restart={restart}
             prev={prev}
             next={next}
-            historyOfMoves={histotyOfMoves}/>
+            historyOfMoves={historyOfMoves}
+            curHistoryMove={curHistoryMove}/>
         </div>
 
     )

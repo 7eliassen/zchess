@@ -2,11 +2,13 @@ type GameState = "playing" | "check" | "checkmate_w" | "checkmate_b" | "stalemat
  
 interface ChessBoardProps {
   setGameState: React.Dispatch<SetStateAction<GameState>>;
-  setHistotyOfMoves: React.Dispatch<SetStateAction<string[]>>
-  histotyOfMoves: string[];
+  setHistoryOfMoves: React.Dispatch<SetStateAction<string[]>>
+  historyOfMoves: HistoryMove[];
   chessPosition: string,
   setChessPosition: React.Dispatch<SetStateAction<string>>,
-  chessGame: Chess
+  chessGame: Chess,
+  boardOrientation: 'white' | 'black',
+  setBoardOrientation: React.Dispatch<SetStateAction<'white' | 'black'>>
 }
 
 interface SideBarProps {
@@ -16,14 +18,15 @@ interface SideBarProps {
 
 interface ChessBoardSidebarProps {
   historyOfMoves: HistoryMove[],
+  curHistoryMove: number,
   prev: () => void,
   next: () => void,
   restart: () => void,
 }
 
 interface HistoryMove {
-  from: string,
-  to: string,
-  piece: string,
+  from?: string,
+  to?: string,
+  piece?: string,
   fen : string
 }

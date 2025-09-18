@@ -25,6 +25,10 @@
         flex: 1; /* контент занимает всё доступное пространство */
     }
 
+    .current-move{
+      background-color: red;
+    }
+
     .history-item {
         border-bottom: 1px solid #000;
 

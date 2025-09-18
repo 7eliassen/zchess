@@ -1,7 +1,17 @@
 @use "./adaptive";
 
+@font-face {
+  font-family: "comic shanns";
+  src:
+    url("../fonts/comic shanns 2.ttf");
+}
+
 html {
-    font-family: cursive;
+    font-family: comic shanns, cursive;
+}
+
+button {
+    font-family: comic shanns, cursive;
 }
 
 body {
@@ -10,4 +20,8 @@ body {
 
 html, body {
     margin: 0;    /* Remove default margin */
+}
+
+button:hover {
+    cursor: pointer;
 }

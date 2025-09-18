@@ -5,15 +5,17 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 import OfflineGame from "../components/OfflineGame.tsx"
 import OnlineGame from "../components/OnlineGame.tsx"
-
-
+import Profile from "../components/Profile.tsx";
+import Settings from "../components/Settings.tsx";
+import Archive from "../components/Archive.tsx"
 interface HomeProps {
   pageProp?: string | null;
 }
+
 function Home({ pageProp }: HomeProps) {
     const navigate = useNavigate();
 
-    const [isSidebarExpanded, setIsSidebarExpanded] = useState(false)
+    const [isSidebarExpanded, setIsSidebarExpanded] = useState(true)
 
     const contentRender = () => {
 
@@ -22,6 +24,12 @@ function Home({ pageProp }: HomeProps) {
                 return <OfflineGame />
             case "onlinegame":
                 return <OnlineGame />
+            case "profile":
+                return <Profile />
+            case "settings":
+                return <Settings />
+            case "archive":
+                return <Archive />
             case "newgame":
             default:
                 return(<>

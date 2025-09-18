@@ -1,0 +1,66 @@
+@use "_variables" as *;
+
+.profile-container {
+    border: 3px solid #000;
+    border-radius: 10px;
+    width: 70%;
+    height: 90%;
+    
+    .stats {
+        font-size: 3rem;
+        margin-left: 40px;
+        p {
+            margin: 10px;
+        }
+    }
+
+    .wins {
+        color: #2f9e44;
+    }
+    
+    .loses {
+        color: #e03131;
+    }
+
+    .draws {
+        color: #f08c00;
+    }
+
+
+    .edit-profile-but {
+        float: right;
+        font-size: 3rem;
+        margin: 10px;
+        transition: $transition-style;
+        border: 3px solid #000;
+        border-radius: 10px;
+        background-color: #fff;
+        &:hover {
+            transition: $transition-style;
+            background-color: $but-hover-bc;
+        }
+    }
+
+    .col-container {
+        justify-content: center;
+        display: flex;
+        flex-direction: column;
+        margin-left: 25px;
+        p {
+            font-size: 5rem;
+            margin: 0.5rem;
+        }
+    }
+
+    img {
+        width: 30rem;
+        height: 30rem;
+    }
+
+    .row-container{
+        display:flex;
+        flex-direction: row;
+
+    }
+
+}

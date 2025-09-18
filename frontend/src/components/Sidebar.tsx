@@ -12,18 +12,18 @@ function Sidebar({isSidebarExpanded, setIsSidebarExpanded}: SideBarProps) {
                 <img className="sidebar-picture" src="/pawn.svg" alt="Game" />
                 {isSidebarExpanded && <p>Game</p>}
             </div>
-            <div className="sidebar-item">
+            <div className="sidebar-item" onClick={() => navigate("/archive")}>
                 <img className="sidebar-picture" src="/archive.svg" alt="Archive" />
                 {isSidebarExpanded && <p>Archive</p>}
             </div>
 
             {/* Here's gap */}
 
-            <div className="sidebar-item bottom">
+            <div className="sidebar-item bottom" onClick={() => navigate("/profile")}>
                 <img className="sidebar-picture bottom" src="/user-profile.svg" alt="Profile" />
                 {isSidebarExpanded && <p>Profile</p>}
             </div>
-            <div className="sidebar-item">
+            <div className="sidebar-item" onClick={() => navigate("/settings")}>
                 <img className="sidebar-picture" src="/settings.svg" alt="Settings" />
                 {isSidebarExpanded && <p>Settings</p>}
             </div>

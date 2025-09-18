@@ -3,9 +3,7 @@ import type { SquareHandlerArgs, PieceDropHandlerArgs } from 'react-chessboard'
 import type { Move, Square } from 'chess.js'
 import { useState, useEffect} from 'react'
 
-function ChessBoard({ setGameState, setHistotyOfMoves, histotyOfMoves, chessPosition, setChessPosition, chessGame}: ChessBoardProps) {
-// create a chess game using a ref to always have access to the latest game state within closures and maintain the game state across renders
-  const [boardOrientation, setBoardOrientation] = useState<'white' | 'black'>('white');
+function ChessBoard({ setGameState, setHistoryOfMoves, historyOfMoves, chessPosition, setChessPosition, chessGame, boardOrientation, setBoardOrientation}: ChessBoardProps) {
   // track the current position of the chess game in state to trigger a re-render of the chessboard
   const [moveFrom, setMoveFrom] = useState('')
   const [optionSquares, setOptionSquares] = useState({})
@@ -120,7 +118,7 @@ function ChessBoard({ setGameState, setHistotyOfMoves, histotyOfMoves, chessPosi
 
       const madenMove: HistoryMove = {from: moveFrom, to: square, fen: chessGame.fen(), piece: foundMove.piece};
 
-      setHistotyOfMoves([...histotyOfMoves, madenMove])
+      setHistoryOfMoves([...historyOfMoves, madenMove])
 
       
     } catch {

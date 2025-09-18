@@ -25,7 +25,7 @@
     align-items: left;
     transition: $transition-style;
     &:hover {
-        background-color: #dadada;
+        background-color: $but-hover-bc;
         transition: $transition-style;
     }
     p {
