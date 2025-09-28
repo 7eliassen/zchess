@@ -24,6 +24,9 @@ class Profile(models.Model):
     draws = models.IntegerField(default=0)
     elo = models.IntegerField(default=1200)
 
+    def __str__(self):
+        return f"{self.user.username} profile"
+
 
 class Game(models.Model):
     pgn = models.TextField()
@@ -35,3 +38,6 @@ class Game(models.Model):
         ('draw', 'Draw'),
     ]
     winner = models.CharField(max_length=5, choices=WINNER_CHOICES)
+
+    def __str__(self):
+        return f"Game {self.white} vs {self.black} ({self.winner})"
