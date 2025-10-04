@@ -39,7 +39,19 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'chessapp',
     'rest_framework',
+    'drf_spectacular',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Zchess API',
+    'DESCRIPTION': 'Api for chess',
+    'VERSION': '0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -74,14 +86,17 @@ WSGI_APPLICATION = 'zchess.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-
-#TODO: in the future switch to postgresql
+# FIXME: Hardcode service and passfile
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": { 
+        "ENGINE": "django.db.backends.postgresql",
+        "OPTIONS": {
+            "service": "zchess",
+            "passfile": "/home/eliassen/.pgpass",
+        },
     }
 }
+
 
 
 # Password validation

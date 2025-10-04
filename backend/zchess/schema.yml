@@ -1,0 +1,62 @@
+openapi: 3.0.3
+info:
+  title: Zchess API
+  version: '0.0'
+  description: Api for chess
+paths:
+  /profile/{username}/:
+    get:
+      operationId: profile_retrieve
+      parameters:
+      - in: path
+        name: username
+        schema:
+          type: string
+        required: true
+      tags:
+      - profile
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+          description: ''
+components:
+  schemas:
+    Profile:
+      type: object
+      properties:
+        username:
+          type: string
+          readOnly: true
+        wins:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        losses:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        draws:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        elo:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+      required:
+      - username
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
