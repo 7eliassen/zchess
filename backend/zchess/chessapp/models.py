@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+import uuid
 """
 Tables:
 First:
@@ -29,6 +29,11 @@ class Profile(models.Model):
 
 
 class Game(models.Model):
+    id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False,
+    )
     pgn = models.TextField()
     white = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='games_as_white')
     black = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='games_as_black')
