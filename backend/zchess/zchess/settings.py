@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+from datetime import timedelta
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -40,11 +41,15 @@ INSTALLED_APPS = [
     'chessapp',
     'rest_framework',
     'drf_spectacular',
-    'channels'
+    'channels',
+    'rest_framework_simplejwt',
 ]
 
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
 }
 
 SPECTACULAR_SETTINGS = {
@@ -83,7 +88,7 @@ TEMPLATES = [
 
 ASGI_APPLICATION = 'zchess.asgi.application'
 
-
+# NOTE: maybe i don't need channel layers? 
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
@@ -107,6 +112,12 @@ DATABASES = {
 }
 
 
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=99999999), #FIXME: tmp for dev
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=100),
+    "USER_ID_FIELD": "username",
+    "USER_ID_CLAIM": "user",
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators

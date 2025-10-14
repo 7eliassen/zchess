@@ -1,6 +1,9 @@
 # consumers.py
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
+import jwt
+
+from .redis_client import redis_client as redis
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
@@ -42,3 +45,11 @@ class ChatConsumer(AsyncWebsocketConsumer):
         await self.send(text_data=json.dumps({
             'message': message
         }))
+
+class StartGame(AsyncWebsocketConsumer):
+
+    async def connect(self):
+        await self.accept()
+
+    async def disconnect(self, code):
+        print("user disconnect")
