@@ -7,6 +7,23 @@ from drf_spectacular.utils import extend_schema, OpenApiResponse
 from .serializers import ProfileSerializer, UserSerializer, GameSerializer
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.permissions import AllowAny
+from rest_framework_simplejwt.authentication import JWTAuthentication
+
+
+
+@extend_schema(
+    tags=["DEBUG"],
+    responses={
+        200: OpenApiResponse(description="Returns username of the logged-in user"),
+        401: OpenApiResponse(description="Not authenticated"),
+    }
+)
+class Hello(APIView):
+    def get(self, request):
+        content = {'message': f'Hello, {request.user.username}!'}
+        return Response(content)
+
 
 @extend_schema(
     tags=["Profiles"], 
@@ -16,6 +33,7 @@ from rest_framework import status
 }
 )
 class ProfileView(generics.RetrieveAPIView):
+    permission_classes = [AllowAny]
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
     lookup_field = 'user__username'
@@ -30,7 +48,9 @@ responses={
     }
 )
 class CreateUser(generics.CreateAPIView):
+    permission_classes = [AllowAny]
     queryset = User.objects.all()
+    # FIXME!!!: DOESN'T WORKS. NEED TO USE .user_create(). Yet it uses just .create()
     serializer_class = UserSerializer
 
     def create(self, request, *args, **kwargs):
@@ -47,6 +67,7 @@ responses={
     }
 )
 class GameView(generics.RetrieveAPIView):
+    permission_classes = [AllowAny]
     queryset = Game.objects.all()
     serializer_class = GameSerializer
     lookup_field='id'

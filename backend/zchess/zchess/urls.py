@@ -25,7 +25,7 @@ from rest_framework_simplejwt.views import (
 )
 
 urlpatterns = [
-    path('/', include('chessapp.urls')),
+    path('chessapi/', include('chessapp.urls')),
 
     path('schema/', SpectacularAPIView.as_view(), name='schema'),
     path('schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
