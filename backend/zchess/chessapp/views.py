@@ -7,6 +7,22 @@ from drf_spectacular.utils import extend_schema, OpenApiResponse
 from .serializers import ProfileSerializer, UserSerializer, GameSerializer
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
+@extend_schema(
+    tags=['debug'],
+    responses={
+        200: OpenApiResponse(description="debug for auth"),
+        401: OpenApiResponse(description="not authorizated")
+    }
+)
+class ExampleView(APIView):
+    def get(self, request, format=None):
+        content = {
+            'user': str(request.user),  # `django.contrib.auth.User` instance.
+        }
+        return Response(content)
+
 
 @extend_schema(
     tags=["Profiles"], 
