@@ -2,7 +2,7 @@ import Sidebar from "../components/Sidebar.tsx"
 import "../styles/home.scss"
 import { useState, useEffect} from "react"
 import { useNavigate, useLocation } from "react-router-dom";
-
+import { CookiesProvider, useCookies } from 'react-cookie'
 import OfflineGame from "../components/OfflineGame.tsx"
 import OnlineGame from "../components/OnlineGame.tsx"
 import Profile from "../components/Profile.tsx";
@@ -40,9 +40,18 @@ function Home({ pageProp }: HomeProps) {
                 )
         }
     }
+    // i don't sure about this
+    const [cookies] = useCookies(['sessionid'])
+    useEffect(() => {
+        if (!cookies.sessionid) {
+        navigate("/login")
+        }
+    }, [cookies, navigate]) 
 
+    if (!cookies.sessionid) return null
 
     return ( 
+
     <div className="home-container">
         <Sidebar
         isSidebarExpanded={isSidebarExpanded}
@@ -52,6 +61,7 @@ function Home({ pageProp }: HomeProps) {
             {contentRender()}
         </div>
     </div>
+    
      );
 }
 

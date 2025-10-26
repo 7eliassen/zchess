@@ -1,6 +1,7 @@
+import OnlineChessBoard from "./OnlineChessBoard"
 function OnlineGame() {
     return (
-        <div>OnlineGame</div>
+        <OnlineChessBoard />
     )
 }
 
