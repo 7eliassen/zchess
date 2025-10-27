@@ -27,6 +27,7 @@ function App() {
           <Route path="/profile" element={<Home pageProp="profile"/>} />
           <Route path="/settings" element={<Home pageProp="settings"/>} />
           <Route path="/archive" element={<Home pageProp="archive"/>} />
+          <Route path="/playgame" element = {<Home pageProp="playgame"/>} />
         </Routes>
       </BrowserRouter>
   )

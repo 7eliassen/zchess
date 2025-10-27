@@ -173,28 +173,34 @@ class StartGame(AsyncWebsocketConsumer):
                     return
                 opponent_socket = opponent_data['channel']
                 opponent_username = opponent_data['username']
-                room = str(uuid4())
+                
+                # FIXME: a little hack?
+                if opponent_username == str(user):
+                    await redis.rpush("game_queue", json.dumps({"username": str(opponent_username), "channel": opponent_socket}))
+                    
+                else:
+                    room = str(uuid4())
 
-                # Game's structure in REDIS 
-                await redis.hset(f"game:{room}", mapping={
-                    'black': opponent_username,
-                    'is_black_connected': 0,
-                    'white': str(user),
-                    'is_white_connected': 0,
-                    'state': 'waiting',
-                    'pgn': "",
-                    'turn': 'white'
-                })
+                    # Game's structure in REDIS 
+                    await redis.hset(f"game:{room}", mapping={
+                        'black': opponent_username,
+                        'is_black_connected': 0,
+                        'white': str(user),
+                        'is_white_connected': 0,
+                        'state': 'waiting',
+                        'pgn': "",
+                        'turn': 'white'
+                    })
 
-                await self.send(json.dumps({"status":"ready", "room": room}))
-                channel_layer = get_channel_layer()
-                await channel_layer.send(
-                opponent_socket,
-                    {
-                        "type": "game.ready",
-                        "room": room,
-                    }
-                )
+                    await self.send(json.dumps({"status":"ready", "room": room}))
+                    channel_layer = get_channel_layer()
+                    await channel_layer.send(
+                    opponent_socket,
+                        {
+                            "type": "game.ready",
+                            "room": room,
+                        }
+                    )
             else:
                 await redis.lpush("game_queue", json.dumps({"username": str(user), "channel": self.channel_name}))
                 await self.send(json.dumps({"status": "waiting"}))

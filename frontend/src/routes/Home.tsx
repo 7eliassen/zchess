@@ -4,10 +4,11 @@ import { useState, useEffect} from "react"
 import { useNavigate, useLocation } from "react-router-dom"
 import { CookiesProvider, useCookies } from 'react-cookie'
 import OfflineGame from "../components/OfflineGame.tsx"
-import OnlineGame from "../components/OnlineGame.tsx"
+import OnlineGame from "../components/OnlineGameSearch.tsx"
 import Profile from "../components/Profile.tsx"
 import Settings from "../components/Settings.tsx"
 import Archive from "../components/Archive.tsx"
+import PlayGame from "../components/OnlineGamePlay.tsx"
 import {api} from "../variables.tsx"
 interface HomeProps {
   pageProp?: string | null;
@@ -38,6 +39,8 @@ function Home({ pageProp }: HomeProps) {
     const contentRender = () => {
 
         switch (pageProp) {
+            case "playgame":
+                return <PlayGame />
             case "offlinegame":
                 return <OfflineGame />
             case "onlinegame":
