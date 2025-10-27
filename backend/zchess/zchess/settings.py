@@ -15,7 +15,7 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
+CORS_ALLOW_CREDENTIALS = True
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'chessapp',
     'rest_framework',
     'drf_spectacular',
-    'channels'
+    'channels',
+    'corsheaders'
 ]
 
 REST_FRAMEWORK = {
@@ -68,8 +69,19 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
 ]
 
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:5173',
+]
+
+
+SESSION_COOKIE_SAMESITE = "None"
+SESSION_COOKIE_SECURE = False  # (True if you use HTTPS)
+CSRF_COOKIE_SAMESITE = "None"
+CSRF_COOKIE_SECURE = False
 
 ROOT_URLCONF = 'zchess.urls'
 
@@ -98,21 +110,26 @@ CHANNEL_LAYERS = {
     },
 }
 
+SESSION_COOKIE_SAMESITE = 'Lax'  # or 'Strict'
+SESSION_COOKIE_SECURE = False     # must be False for HTTP
+
+CSRF_COOKIE_SAMESITE = 'Lax'
+CSRF_COOKIE_SECURE = False
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 # FIXME: Hardcode service and passfile
 DATABASES = {
-    "default": { 
-        "ENGINE": "django.db.backends.postgresql",
-        "OPTIONS": {
-            "service": "zchess",
-            "passfile": "/home/eliassen/.pgpass",
-        },
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',  # PostgreSQL backend
+        'NAME': 'zchess',       # your database name
+        'USER': 'postgres',     # your PostgreSQL user
+        'PASSWORD': '123',  # your PostgreSQL password
+        'HOST': 'localhost',    # usually localhost if running locally
+        'PORT': '5432',         # default PostgreSQL port
     }
 }
-
 
 
 # Password validation

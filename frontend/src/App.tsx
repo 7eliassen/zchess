@@ -1,20 +1,21 @@
 import ChessBoard from "./components/OfflineChessBoard.tsx"
 import { useEffect, useState } from "react"
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+import { useNavigate } from "react-router-dom"
+import {api} from "./variables"
 
 import "./styles/index.scss"
 import "./styles/classes.scss"
+
 
 //Import Routes
 import Registration from "./routes/Registration.tsx"
 import Login from "./routes/Login.tsx"
 import Home from "./routes/Home.tsx"
 
-import { CookiesProvider} from 'react-cookie'
 
 function App() {
   return (
-    <CookiesProvider>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home pageProp="newgame"/>}/>
@@ -28,8 +29,6 @@ function App() {
           <Route path="/archive" element={<Home pageProp="archive"/>} />
         </Routes>
       </BrowserRouter>
-    </CookiesProvider>
-
   )
 }
 

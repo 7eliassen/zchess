@@ -1,14 +1,16 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import generics
+from rest_framework import generics # type: ignore
 from .models import Profile, User, Game
 from drf_spectacular.utils import extend_schema, OpenApiResponse
 from .serializers import ProfileSerializer, UserSerializer, GameSerializer
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from django.middleware.csrf import get_token
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import AllowAny
 @extend_schema(
     tags=['debug'],
     responses={
@@ -66,3 +68,9 @@ class GameView(generics.RetrieveAPIView):
     queryset = Game.objects.all()
     serializer_class = GameSerializer
     lookup_field='id'
+
+
+class CSRFTokenView(APIView):
+    permission_classes = [AllowAny]
+    def get(self, request):
+        return Response({'csrfToken': get_token(request)})
